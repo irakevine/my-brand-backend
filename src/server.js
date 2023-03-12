@@ -17,7 +17,7 @@ dotenv.config();
  
  //use of cors and bodyparser
 app.use(cors())
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit:'15mb'}))
 
 //route- home route
 app.get("/",(req, res) => {

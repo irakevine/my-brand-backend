@@ -39,14 +39,14 @@ static async getBlog(req, res){
 
 static async createBlog(req, res){
     try {
-        const {title , content, author,imageUrl} = req.body;
+        const {title , content,imageUrl} = req.body;
         const findBlogs= await Blog.findOne({content})
         if(findBlogs){
           return res.status(400).json({
             message:"Blogs already exists"
           })
         }
-        const newBlog = await Blog.create({title , content, author,imageUrl});
+        const newBlog = await Blog.create({title , content,imageUrl});
         res.status(201).json({
             message:"new blog created successfully",
             data:newBlog
@@ -55,7 +55,8 @@ static async createBlog(req, res){
     catch (error) {
         
         res.status(500).json({
-          message:"server error"
+          message:error
+
         }); 
     } 
     
@@ -67,10 +68,10 @@ static async updateBlog(req, res){
         const {id}=req.params;
         
         //body tobe updated
-        const{title,content} = req.body;
+        const{title,content,imageUrl} = req.body;
         //id
         const _id = id
-        const blogUpdated = await Blog.findByIdAndUpdate(_id,{title,content},{new:true}) 
+        const blogUpdated = await Blog.findByIdAndUpdate({_id},{title,content,imageUrl},{new:true}) 
 
         if(!blogUpdated){
 

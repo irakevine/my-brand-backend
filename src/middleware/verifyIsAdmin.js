@@ -1,21 +1,23 @@
 import jwt from "jsonwebtoken";
 
 const verifyIsAdmin = (req, res, next) =>{
-   const authHeader= req.headers.authorization
+   const authHeader= req.headers.credentials
+   console.log(authHeader)
    if(! authHeader){
       return res.status(401).json({
          message:"no Token provided"
       })
    }else{
-     const token = authHeader.split(" ")[1]
-     console.log(token)
+     
 
      try {
-      const verifiedUser = jwt.verify(token,process.env.SECRETE_kEY,{expiresIn:'1d'} )
+      const verifiedUser = jwt.verify(authHeader,process.env.SECRETE_kEY,{expiresIn:'1d'} )
       if(!verifiedUser.isAdmin){
         return res.status(401).json({
          message:"User not Authorized"
         })
+      }else{
+         console.log("we are in")
       }
       next()
 
