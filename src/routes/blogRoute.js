@@ -9,6 +9,7 @@ router.get("/:id",blogController.getBlog)
 router.post("/",  verifyIsAdmin,blogController.createBlog)
 router.put("/:id", verifyIsAdmin,blogController.updateBlog)
 router.delete("/:id",verifyIsAdmin, blogController.deleteBlog)
+router.put("/:id/comment", blogController.createComment);
 
 export default router
 

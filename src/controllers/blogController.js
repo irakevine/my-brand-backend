@@ -118,5 +118,16 @@ static async deleteBlog(req,res){
     }
 }
 
+// Create comments
+
+    static async createComment(req, res){
+
+        const {id} = req.headers;
+        const {name, email, comment} = req.body;
+
+        console.log(id, req.body)
+
+    }
+
 }
 export default blogController

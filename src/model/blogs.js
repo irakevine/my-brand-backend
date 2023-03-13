@@ -15,6 +15,10 @@ const blogSchema = new mongoose.Schema({
          type:String,
          required: true
      },
+   comments: {
+      type: Array,
+      default: []
+   },
      createdAt:{
         type:Date,
         default:Date.now
