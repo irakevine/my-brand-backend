@@ -122,10 +122,31 @@ static async deleteBlog(req,res){
 
     static async createComment(req, res){
 
-        const {id} = req.headers;
-        const {name, email, comment} = req.body;
-
-        console.log(id, req.body)
+        try {
+            // Catch blog id from the request params
+            const { id } = req.params;
+      
+            // Catch comment attributes from the request body
+            const { name, email, comment } = req.body;
+      
+            console.log(req.body);
+      
+            // Find the blog with the id and push the comment attributes to the comments array
+            const blog = await Blog.findById(id);
+            blog.comments.push({ name, email, comment, createdAt: Date.now() });
+      
+            // Save the blog
+            await blog.save();
+      
+            // Send a response
+            res.status(201).json({
+              message: "Comment added successfully",
+            });
+      
+            // Catch any errors
+          } catch (error) {
+           console.log(error);
+          }
 
     }
 
